@@ -1,7 +1,10 @@
 <template>
     <div id="app">
-        <Index></Index>
-        <Other></Other>
+        <router-link to='/'>首页</router-link>
+        <router-link to='/other'>其他</router-link>
+        <router-view></router-view>
+        <!-- <Index></Index>
+        <Other></Other> -->
     </div>
 </template>
 <script>
