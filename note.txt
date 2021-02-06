@@ -1,0 +1,4 @@
+1.css-loader 5.x版本和vue-style-loader配合使用时
+需要设置css-loader 选项： esModule: false
+
+2. webpack 和html-webpack-plugin 都是4.x版本
