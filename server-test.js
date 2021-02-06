@@ -1,13 +1,12 @@
 const Koa = require('koa')
 const Router = require('koa-router')
-const Static = require('koa-static')
 const Vue = require('vue')
 const fs = require('fs')
 const VueServerRender = require('vue-server-renderer')
 const vm = new Vue({
     data(){
         return{
-            msg:'hellow vue'
+            msg:'hellow vue-ssr'
         }
     },
     template:`<div>{{msg}}</div>`
