@@ -3,13 +3,13 @@ const Router = require('koa-router')
 const static = require('koa-static')
 const path = require('path')
 const fs = require('fs')
-const VueServerRender = require('vue-server-renderer')
+const { createBundleRenderer } = require('vue-server-renderer')
 
 let template = fs.readFileSync('./dist/index.ssr.html','utf8')
 const serverBundle = require('./dist/vue-ssr-server-bundle.json')
 const clientManifest = require('./dist/vue-ssr-client-manifest.json')
 
-let renderer = VueServerRender.createBundleRenderer(serverBundle,{
+let renderer = createBundleRenderer(serverBundle,{
     template,
     clientManifest
 })
@@ -17,9 +17,9 @@ const app = new Koa()
 const router = new Router()
 router.get('/',async ctx=>{
     ctx.body = await new Promise((resolve,reject)=>{
-        renderer.renderToString({url:'/'},(err,data)=>{
+        renderer.renderToString({url:'/'},(err,html)=>{
             if(!err){
-                resolve(data)
+                resolve(html)
             }else{
                 reject(err)
             }
@@ -33,9 +33,9 @@ app.use(static(path.resolve(__dirname,'dist')))
 app.use(async ctx=>{
     try{
         ctx.body = await new Promise((resolve,reject)=>{
-            renderer.renderToString({url:ctx.url},(err,data)=>{
+            renderer.renderToString({url:ctx.url},(err,html)=>{
                 if(!err){
-                    resolve(data)
+                    resolve(html)
                 }else{
                     reject(err)
                 }
